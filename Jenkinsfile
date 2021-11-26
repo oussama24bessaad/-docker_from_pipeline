@@ -9,7 +9,7 @@ node {
 
     stage('Build image') {
   
-       app = docker.build("Docker")
+       app = docker.build("oussama24bessaad/-docker_from_pipeline")
     }
 
     stage('Test image') {
