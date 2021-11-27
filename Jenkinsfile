@@ -22,10 +22,7 @@ node {
 
     stage('Push image') {
         
-        docker.withRegistry('https://registry.hub.docker.com', 'git') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-        }
+        sh 'docker push oussama24bessaad/-docker_from_pipeline:latest'
     }
   
 }
