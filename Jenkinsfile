@@ -1,28 +1,42 @@
-node {
-    def app
-
-    stage('Clone repository') {
-      
-
-        checkout scm
+pipeline {
+  environment {
+    registry = "oussama24/docker_from_pipeline"
+    registryCredential = 'dockerfrompipeline'
+    dockerImage = 'pipeline_cicd:1.0'
+  }
+  agent any
+  tools {nodejs "node" }
+  stages {
+    stage('Cloning Git') {
+      steps {
+        git 'https://github.com/oussama24bessaad/-docker_from_pipeline.git'
+      }
     }
-
-    stage('Build image') {
-  
-       app = docker.build("pipeline_cicd")
+    stage('Build') {
+       steps {
+         sh 'npm install'
+       }
     }
-
-    stage('Test image') {
-  
-
-        app.inside {
-            sh 'echo "Tests passed"'
+    stage('Test') {
+      steps {
+        sh 'npm test'
+      }
+    }
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
+      }
     }
-stage('Push image') {
-        
-        sh 'docker push pipeline_cicd:1.0'
+    stage('Pushing Image') {
+      steps{
+         script {
+            docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
     }
-    
   
 }
