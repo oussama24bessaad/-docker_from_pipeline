@@ -20,9 +20,6 @@ node {
         }
     }
 
-    stage('Push image') {
-        
-        sh 'docker push -docker_from_pipeline:1.0'
-    }
+    
   
 }
