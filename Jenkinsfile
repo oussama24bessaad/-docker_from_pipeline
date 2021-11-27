@@ -22,7 +22,7 @@ node {
 
     stage('Push image') {
         
-        sh 'docker push oussama24bessaad/-docker_from_pipeline:latest'
+        sh 'docker push -docker_from_pipeline:latest'
     }
   
 }
