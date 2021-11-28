@@ -12,15 +12,15 @@ pipeline {
         git 'https://github.com/oussama24bessaad/-docker_from_pipeline.git'
       }
     }
-    stage('Build') {
+    stage('Build (npm)') {
        steps {
          sh 'npm install'
        }
     }
     
-    stage('Test') {
+    stage('Images List') {
       steps {
-        sh 'npm test'
+        sh 'docker images oussama24/docker_from_pipeline'
       }
     }
     stage('Building image') {
