@@ -14,7 +14,7 @@ pipeline {
     }
     stage('Build (npm)') {
        steps {
-         sh 'npm install'
+         sh 'npm install -g @angular/cli@latest'
        }
     }
     
